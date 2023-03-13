@@ -7,9 +7,10 @@ async def on_start_bot(_):
     print('Bot is online now')
     sqldb.sql_start()
 
-from handlers import admin, client
+from handlers import admin, client, other
 client.register_message_handler(dp)
 admin.register_admin_handlers(dp)
+other.register_handlers_other(dp)
 
 
 

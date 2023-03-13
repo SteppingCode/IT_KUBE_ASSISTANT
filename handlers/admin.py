@@ -98,6 +98,10 @@ async def delete_item(message : types.Message):
         for ret in read:
             await bot.send_message(ID, f'Имя: {ret[0]}\nВозраст: {ret[1]}\nКонтакт: {ret[2]}\nИнформация: {ret[-1]}', reply_markup=InlineKeyboardMarkup().\
                                    add(InlineKeyboardButton(f"Удалить {ret[0]}", callback_data=f"del {ret[0]}")))
+#Выход из админки
+async def leave_admin(msg : types.Message):
+    if msg.from_user.id == ID:
+        await msg.reply('Вы вышли из админ-меню', reply_markup=client_kb.client_kb1)
 
 def register_admin_handlers(dp : Dispatcher):
     dp.register_message_handler(fsm_start, commands=['Записаться'], state=None)
@@ -110,3 +114,4 @@ def register_admin_handlers(dp : Dispatcher):
     dp.register_message_handler(make_changes_command, commands=['moder'], is_chat_admin=True)
     dp.register_message_handler(list_of_names, commands=['Список'])
     dp.register_message_handler(delete_item, commands=['Удалить'])
+    dp.register_message_handler(leave_admin, commands=['Выход'])
