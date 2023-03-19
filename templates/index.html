@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ super() }}
+
+<h2> Список данных </h2>
+<hr>
+
+<ol class="list-posts">
+  {% for p in data %}
+  <li style="font-size: x-large; border: 1px black solid; padding: 5px;">
+    <p class="name" >Имя: {{ p.name }}</p>
+    <p class="age" >Возраст: {{ p.age }}</p>
+    <p class="contact" >Контакты: {{ p.contact }}</p>
+    <p class="information" >Информация: {{ p.information }}</p>
+    <p class="photo" > <img src="https://png.pngtree.com/png-vector/20190215/ourlarge/pngtree-vector-question-mark-icon-png-image_515448.jpg" height="200px" width="200px"></p>
+  </li>
+  {% endfor %}
+  </ol>
+{% endblock %}

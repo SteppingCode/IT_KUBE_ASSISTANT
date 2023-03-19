@@ -1,8 +1,6 @@
-from aiogram import types
 from aiogram.utils import executor
 from data_base import sqldb
-from create_bot import bot, dp
-
+from create_bot import dp
 async def on_start_bot(_):
     print('Bot is online now')
     sqldb.sql_start()
