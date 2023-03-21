@@ -1,0 +1,21 @@
+body {
+    background-color: lightgrey;
+}
+
+h2 {
+    font-size: 35px;
+    border: 1px black solid;
+    width: 50%;
+}
+
+ol {
+    height: 100%;
+    width: 25%;
+    border: 1px black solid;
+    margin: 20px;
+}
+
+li {
+    height: 100%;
+    wight: 100%;
+}

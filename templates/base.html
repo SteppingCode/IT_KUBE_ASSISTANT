@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
+    <title>База данных</title>
+</head>
+<body>
+
+{% block content %}
+            {%- block mainmenu -%}
+        <ul class="mainmenu">
+            {% for m in mainmenu -%}
+            <li><a href="{{url_for(m.url)}}"> {{m.title}}</a></li>
+        {% endfor -%}
+        </ul>
+
+            {% endblock mainmenu -%}
+
+<hr>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+    {% for message in messages  %}
+    <li>{{message}}     </li>
+    {% endfor %}
+
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock %}
+</body>
+</html>

@@ -1,9 +1,8 @@
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
-client_btn1 = KeyboardButton('/Записаться')
+client_btn1 = KeyboardButton('/Записаться_в_IT_Куб')
 client_btn2 = KeyboardButton('/Отмена')
-client_btn3 = KeyboardButton('/Автор')
 client_kb1 = ReplyKeyboardMarkup(resize_keyboard=True)
-client_kb1.row(client_btn1, client_btn3)
+client_kb1.row(client_btn1)
 client_kb2 = ReplyKeyboardMarkup(resize_keyboard=True)
 client_kb2.row(client_btn2)

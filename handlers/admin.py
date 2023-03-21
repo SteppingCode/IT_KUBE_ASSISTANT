@@ -59,8 +59,12 @@ async def load_name(msg : types.Message, state : FSMContext):
 async def load_age(msg : types.Message, state : FSMContext):
     async with state.proxy() as data:
         data['age'] = msg.text
-    await FSMAdmin.next()
-    await msg.reply('Как можно с вами связаться?')
+        if data['age'] >= str(18):
+            await msg.reply('Извините вы нам не подходите', reply_markup=client_kb.client_kb1)
+            await state.finish()
+        else:
+            await FSMAdmin.next()
+            await msg.reply('Как можно с вами связаться?')
 
 #Третий ответ
 async def load_contact(msg : types.Message, state : FSMContext):
@@ -83,7 +87,7 @@ async def load_photo(msg : types.Message, state : FSMContext):
         await sqldb.insert_data_command(state)
         print("New data was added to database")
         try:
-            await bot.send_message(chat_id=ID, text=f"Босс у вас новый клиент")
+            await bot.send_message(chat_id=ID, text=f"Босс у вас новый клиент", reply_markup=admin_kb.kb)
             await sqldb.sql_read(ID)
         except:
             await bot.send_message(msg.from_user.id, f"Данные успешно заполнены, подождите пока с вами не свяжутся",
@@ -113,14 +117,14 @@ async def leave_admin(msg : types.Message):
         await msg.reply('Вы вышли из админ-меню', reply_markup=client_kb.client_kb1)
 
 def register_admin_handlers(dp : Dispatcher):
-    dp.register_message_handler(fsm_start, commands=['Записаться'], state=None)
+    dp.register_message_handler(fsm_start, commands=['Записаться_в_IT_Куб'], state=None)
     dp.register_message_handler(cancel_fsm, state='*', commands=['Отмена'])
     dp.register_message_handler(cancel_fsm, Text(equals='Отмена', ignore_case=True), state='*')
     dp.register_message_handler(load_name, state=FSMAdmin.name)
     dp.register_message_handler(load_age, state=FSMAdmin.age)
     dp.register_message_handler(load_contact, state=FSMAdmin.contact)
     dp.register_message_handler(load_information, state=FSMAdmin.information)
-    dp.register_message_handler(load_photo,content_types=['photo'], state=FSMAdmin.photo)
+    dp.register_message_handler(load_photo, content_types=['photo'], state=FSMAdmin.photo)
     dp.register_message_handler(make_changes_command, commands=['moder'], is_chat_admin=True)
     dp.register_message_handler(list_of_names, commands=['Список'])
     dp.register_message_handler(delete_item, commands=['Удалить'])
